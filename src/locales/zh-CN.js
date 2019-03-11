@@ -13,10 +13,11 @@ import component from './zh-CN/component';
 
 export default {
   'navBar.lang': '语言',
-  'layout.user.link.help': '帮助',
-  'layout.user.link.privacy': '隐私',
-  'layout.user.link.terms': '条款',
+  'layout.user.link.fe': '前端仓库',
+  'layout.user.link.be': '后端仓库',
+  'layout.user.link.github': 'Github',
   'app.home.introduce': '介绍',
+  'app.description': '深呼吸，然后继续前行。',
   'app.forms.basic.title': '基础表单',
   'app.forms.basic.description':
     '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',

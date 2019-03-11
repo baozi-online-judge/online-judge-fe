@@ -1,6 +1,8 @@
 @import '~antd/lib/style/themes/default.less';
 
 .container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -8,7 +10,17 @@
   background: @layout-body-background;
 }
 
+.particles {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
 .lang {
+  z-index: 1;
   width: 100%;
   height: 40px;
   line-height: 44px;
@@ -19,13 +31,17 @@
 }
 
 .content {
+  z-index: 1;
   flex: 1;
   padding: 32px 0;
 }
 
+.footer {
+  z-index: 1;
+}
+
 @media (min-width: @screen-md-min) {
   .container {
-    background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
     background-repeat: no-repeat;
     background-position: center 110px;
     background-size: 100%;
