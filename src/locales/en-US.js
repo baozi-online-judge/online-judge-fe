@@ -16,6 +16,7 @@ export default {
   'layout.user.link.fe': 'Front-End',
   'layout.user.link.be': 'Back-End',
   'layout.user.link.github': 'Github',
+  'app.home.title': 'Panda Online Judge',
   'app.home.introduce': 'introduce',
   'app.description': 'Take a breath, and go for it.',
   'app.forms.basic.title': 'Basic form',

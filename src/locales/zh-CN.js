@@ -16,6 +16,7 @@ export default {
   'layout.user.link.fe': '前端仓库',
   'layout.user.link.be': '后端仓库',
   'layout.user.link.github': 'Github',
+  'app.home.title': 'Panda 在线测评系统',
   'app.home.introduce': '介绍',
   'app.description': '深呼吸，然后继续前行。',
   'app.forms.basic.title': '基础表单',
