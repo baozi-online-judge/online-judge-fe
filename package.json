@@ -1,7 +1,7 @@
 {
-  "name": "ant-design-pro",
-  "version": "2.2.1",
-  "description": "An out-of-box UI solution for enterprise applications",
+  "name": "baozi-online-judge-fe",
+  "version": "0.0.1",
+  "description": "Take a breath, and go for it.",
   "private": true,
   "scripts": {
     "presite": "cd functions && npm install",
