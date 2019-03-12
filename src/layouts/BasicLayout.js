@@ -45,7 +45,7 @@ const query = {
 };
 
 class BasicLayout extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     const {
       dispatch,
       route: { routes, authority },
@@ -125,8 +125,8 @@ class BasicLayout extends React.Component {
         )}
         <Layout
           style={{
-            ...this.getLayoutStyle(),
             minHeight: '100vh',
+            ...this.getLayoutStyle(),
           }}
         >
           <Header

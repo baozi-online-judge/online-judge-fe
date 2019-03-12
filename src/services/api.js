@@ -103,13 +103,6 @@ export async function updateFakeList(params) {
   });
 }
 
-export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
-    method: 'POST',
-    body: params,
-  });
-}
-
 export async function accountLogin(params) {
   const { userId, password, rememberMe } = params;
   return request('/graphql', {
@@ -123,6 +116,17 @@ export async function accountLogin(params) {
         }
       }`,
       operation: 'login',
+    },
+  });
+}
+
+export async function accountLogout() {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `mutation {
+        logout
+      }`,
     },
   });
 }

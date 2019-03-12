@@ -1,4 +1,4 @@
-import { query as queryUsers, queryCurrent } from '@/services/user';
+import { query as queryUsers, queryCurrentUser } from '@/services/user';
 
 export default {
   namespace: 'user',
@@ -17,11 +17,13 @@ export default {
       });
     },
     *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
+      const { data } = yield call(queryCurrentUser);
+      if (data && data.current) {
+        yield put({
+          type: 'saveCurrentUser',
+          payload: data.current,
+        });
+      }
     },
   },
 
@@ -32,10 +34,10 @@ export default {
         list: action.payload,
       };
     },
-    saveCurrentUser(state, action) {
+    saveCurrentUser(state, { payload }) {
       return {
         ...state,
-        currentUser: action.payload || {},
+        currentUser: payload || {},
       };
     },
     changeNotifyCount(state, action) {

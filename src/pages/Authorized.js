@@ -5,7 +5,7 @@ import { connect } from 'dva';
 import Authorized from '@/utils/Authorized';
 
 function AuthComponent({ children, location, routerData, status }) {
-  const isLogin = status === 'ok';
+  const isLogin = status;
   const getRouteAuthority = (path, routeData) => {
     let authorities;
     routeData.forEach(route => {

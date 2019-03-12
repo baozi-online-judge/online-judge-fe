@@ -72,6 +72,7 @@ class HeaderView extends Component {
       dispatch({
         type: 'login/logout',
       });
+      router.push('/user/login');
     }
   };
 

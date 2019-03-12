@@ -4,6 +4,18 @@ export async function query() {
   return request('/api/users');
 }
 
-export async function queryCurrent() {
-  return request('/api/currentUser');
+export async function queryCurrentUser() {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `query {
+        current {
+          user_id
+          nickname
+          avatar_url
+          email
+        }
+      }`,
+    },
+  });
 }

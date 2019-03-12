@@ -3,6 +3,7 @@ export default [
   {
     path: '/user',
     component: '../layouts/UserLayout',
+    authority: ['GUEST'],
     routes: [
       { path: '/user', redirect: '/user/login' },
       { path: '/user/login', name: 'login', component: './User/Login' },
@@ -19,6 +20,7 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
+    authority: ['ADMIN', 'REGULAR'],
     routes: [
       // dashboard
       { path: '/', redirect: '/dashboard/analysis' },
