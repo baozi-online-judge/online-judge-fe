@@ -43,13 +43,16 @@ class LoginPage extends Component {
     });
 
   handleSubmit = (err, values) => {
-    const { type } = this.state;
+    const { type, autoLogin } = this.state;
     if (!err) {
       const { dispatch } = this.props;
+      const { userId, password } = values;
       dispatch({
         type: 'login/login',
         payload: {
-          ...values,
+          userId,
+          password,
+          rememberMe: autoLogin,
           type,
         },
       });
@@ -85,7 +88,7 @@ class LoginPage extends Component {
               !submitting &&
               this.renderMessage(formatMessage({ id: 'app.login.message-invalid-credentials' }))}
             <UserName
-              name="userName"
+              name="userId"
               placeholder={`${formatMessage({ id: 'app.login.userName' })}`}
               rules={[
                 {

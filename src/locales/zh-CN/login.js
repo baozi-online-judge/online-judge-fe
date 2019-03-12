@@ -1,11 +1,11 @@
 export default {
   'app.login.userName': '用户名',
   'app.login.password': '密码',
-  'app.login.message-invalid-credentials': '账户或密码错误（admin/ant.design）',
+  'app.login.message-invalid-credentials': '账户或密码错误',
   'app.login.message-invalid-verification-code': '验证码错误',
   'app.login.tab-login-credentials': '账户密码登录',
   'app.login.tab-login-mobile': '手机号登录',
-  'app.login.remember-me': '自动登录',
+  'app.login.remember-me': '记住我',
   'app.login.forgot-password': '忘记密码',
   'app.login.sign-in-with': '其他登录方式',
   'app.login.signup': '注册账户',

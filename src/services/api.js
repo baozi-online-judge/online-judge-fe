@@ -110,6 +110,23 @@ export async function fakeAccountLogin(params) {
   });
 }
 
+export async function accountLogin(params) {
+  const { userId, password, rememberMe } = params;
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `mutation {
+        login(user_id: "${userId}", password: "${password}", remember_me: ${rememberMe}) {
+          user_id
+          role
+          nickname
+        }
+      }`,
+      operation: 'login',
+    },
+  });
+}
+
 export async function fakeRegister(params) {
   return request('/api/register', {
     method: 'POST',

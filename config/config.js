@@ -86,6 +86,13 @@ export default {
   //     pathRewrite: { '^/server': '' },
   //   },
   // },
+  proxy: {
+    '/graphql': {
+      target: 'http://127.0.0.1:7001/graphql',
+      changeOrigin: true,
+      pathRewrite: { '^/graphql': '' },
+    },
+  },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,

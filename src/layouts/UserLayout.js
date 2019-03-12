@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { formatMessage } from 'umi/locale';
 import { connect } from 'dva';
-import Link from 'umi/link';
 import { Icon } from 'antd';
 import GlobalFooter from '@/components/GlobalFooter';
 import DocumentTitle from 'react-document-title';
@@ -66,12 +65,8 @@ class UserLayout extends Component {
           <div className={styles.content}>
             <div className={styles.top}>
               <div className={styles.header}>
-                <Link to="/">
-                  <img alt="logo" className={styles.logo} src={logo} />
-                  <span className={styles.title}>
-                    {`${formatMessage({ id: 'app.home.title' })}`}
-                  </span>
-                </Link>
+                <img alt="logo" className={styles.logo} src={logo} />
+                <span className={styles.title}>{`${formatMessage({ id: 'app.home.title' })}`}</span>
               </div>
               <div className={styles.desc}>{`${formatMessage({ id: 'app.description' })}`}</div>
             </div>
