@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { formatMessage, FormattedMessage } from 'umi/locale';
 import Link from 'umi/link';
 import router from 'umi/router';
-import { Form, Input, Button, Popover, Progress } from 'antd';
+import { Alert, Form, Input, Button, Popover, Progress } from 'antd';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
@@ -48,7 +48,7 @@ class Register extends Component {
     const { form, register } = this.props;
     const userId = form.getFieldValue('userId');
     const nickname = form.getFieldValue('nickname');
-    if (register.status) {
+    if (register.status === 'ok') {
       router.push({
         pathname: '/user/register-result',
         state: {
@@ -150,8 +150,12 @@ class Register extends Component {
     ) : null;
   };
 
+  renderMessage = content => (
+    <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
+  );
+
   render() {
-    const { form, submitting } = this.props;
+    const { form, submitting, register } = this.props;
     const { getFieldDecorator } = form;
     const { help, visible } = this.state;
     return (
@@ -159,6 +163,9 @@ class Register extends Component {
         <h3>
           <FormattedMessage id="app.register.register" />
         </h3>
+        {register.status === 'error' &&
+          !submitting &&
+          this.renderMessage(formatMessage({ id: 'validation.userId.used' }))}
         <Form onSubmit={this.handleSubmit}>
           <FormItem hasFeedback>
             {getFieldDecorator('userId', {

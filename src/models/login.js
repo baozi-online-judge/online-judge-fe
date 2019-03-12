@@ -19,7 +19,8 @@ export default {
       yield put({
         type: 'changeLoginStatus',
         payload: {
-          status: isLogin,
+          status: isLogin || 'error',
+          type: 'account',
           currentAuthority: (data && data.login && data.login.role) || 'GUEST',
         },
       });
