@@ -5,6 +5,8 @@ export default {
   'form.submit': 'Submit',
   'form.save': 'Save',
   'form.email.placeholder': 'Email',
+  'form.userId.placeholder': 'User ID',
+  'form.nickname.placeholder': 'Nickname',
   'form.password.placeholder': 'Password',
   'form.confirm-password.placeholder': 'Confirm password',
   'form.phone-number.placeholder': 'Phone number',

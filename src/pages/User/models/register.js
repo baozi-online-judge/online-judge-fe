@@ -1,31 +1,42 @@
-import { fakeRegister } from '@/services/api';
-import { setAuthority } from '@/utils/authority';
-import { reloadAuthorized } from '@/utils/Authorized';
+import { register } from '@/services/api';
+import { notification } from 'antd';
+import { formatMessage } from 'umi/locale';
 
 export default {
   namespace: 'register',
 
   state: {
-    status: undefined,
+    status: false,
   },
 
   effects: {
     *submit({ payload }, { call, put }) {
-      const response = yield call(fakeRegister, payload);
-      yield put({
-        type: 'registerHandle',
-        payload: response,
-      });
+      const { userId, nickname, password, email } = payload;
+      const { data } = yield call(register, { userId, nickname, password, email });
+      if (data) {
+        if (data.register) {
+          yield put({
+            type: 'registerHandle',
+            payload: {
+              status: Boolean(data.register),
+              role: data.register.role,
+            },
+          });
+        } else {
+          notification.error({
+            message: formatMessage({ id: 'validation.userId.used' }),
+          });
+        }
+      }
     },
   },
 
   reducers: {
     registerHandle(state, { payload }) {
-      setAuthority('user');
-      reloadAuthorized();
+      const { status } = payload;
       return {
         ...state,
-        status: payload.status,
+        status,
       };
     },
   },

@@ -131,10 +131,25 @@ export async function accountLogout() {
   });
 }
 
-export async function fakeRegister(params) {
-  return request('/api/register', {
+export async function register(params) {
+  const { userId, nickname, password, email } = params;
+  return request('/graphql', {
     method: 'POST',
-    body: params,
+    body: {
+      query: `mutation {
+        register(
+          user_id: "${userId}",
+          password: "${password}",
+          nickname: "${nickname}"
+          email: "${email}"
+          ) {
+          user_id
+          role
+          nickname
+        }
+      }`,
+      operation: 'register',
+    },
   });
 }
 

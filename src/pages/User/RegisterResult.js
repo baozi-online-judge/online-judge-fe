@@ -7,12 +7,12 @@ import styles from './RegisterResult.less';
 
 const actions = (
   <div className={styles.actions}>
-    <a href="">
+    {/* <a href="">
       <Button size="large" type="primary">
         <FormattedMessage id="app.register-result.view-mailbox" />
       </Button>
-    </a>
-    <Link to="/">
+    </a> */}
+    <Link to="/user/login">
       <Button size="large">
         <FormattedMessage id="app.register-result.back-home" />
       </Button>
@@ -20,22 +20,26 @@ const actions = (
   </div>
 );
 
-const RegisterResult = ({ location }) => (
-  <Result
-    className={styles.registerResult}
-    type="success"
-    title={
-      <div className={styles.title}>
-        <FormattedMessage
-          id="app.register-result.msg"
-          values={{ email: location.state ? location.state.account : 'AntDesign@example.com' }}
-        />
-      </div>
-    }
-    description={formatMessage({ id: 'app.register-result.activation-email' })}
-    actions={actions}
-    style={{ marginTop: 56 }}
-  />
-);
+const RegisterResult = ({ location }) => {
+  let account = '';
+  if (location.state) {
+    const { userId, nickname } = location.state;
+    account = `${nickname}@${userId}`;
+  }
+  return (
+    <Result
+      className={styles.registerResult}
+      type="success"
+      title={
+        <div className={styles.title}>
+          <FormattedMessage id="app.register-result.msg" values={{ account }} />
+        </div>
+      }
+      description={formatMessage({ id: 'app.register-result.description' })}
+      actions={actions}
+      style={{ marginTop: 56 }}
+    />
+  );
+};
 
 export default RegisterResult;

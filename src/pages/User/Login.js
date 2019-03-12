@@ -93,7 +93,7 @@ class LoginPage extends Component {
               rules={[
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.userName.required' }),
+                  message: formatMessage({ id: 'validation.userId.required' }),
                 },
               ]}
             />
