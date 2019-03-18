@@ -9,7 +9,7 @@ const FooterView = () => (
       links={[
         {
           key: 'Pro 首页',
-          title: 'Pro 首页',
+          title: '前端',
           href: 'https://pro.ant.design',
           blankTarget: true,
         },
@@ -21,14 +21,14 @@ const FooterView = () => (
         },
         {
           key: 'Ant Design',
-          title: 'Ant Design',
+          title: '后台',
           href: 'https://ant.design',
           blankTarget: true,
         },
       ]}
       copyright={
         <Fragment>
-          Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+          Copyright <Icon type="copyright" /> 2019 HeskeyBaozi
         </Fragment>
       }
     />

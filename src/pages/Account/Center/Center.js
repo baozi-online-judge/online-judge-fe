@@ -97,23 +97,23 @@ class Center extends PureComponent {
         key: 'articles',
         tab: (
           <span>
-            文章 <span style={{ fontSize: 14 }}>(8)</span>
+            讨论 <span style={{ fontSize: 14 }}>(8)</span>
           </span>
         ),
       },
-      {
-        key: 'applications',
-        tab: (
-          <span>
-            应用 <span style={{ fontSize: 14 }}>(8)</span>
-          </span>
-        ),
-      },
+      // {
+      //   key: 'applications',
+      //   tab: (
+      //     <span>
+      //       应用 <span style={{ fontSize: 14 }}>(8)</span>
+      //     </span>
+      //   ),
+      // },
       {
         key: 'projects',
         tab: (
           <span>
-            项目 <span style={{ fontSize: 14 }}>(8)</span>
+            题目 <span style={{ fontSize: 14 }}>(8)</span>
           </span>
         ),
       },
@@ -127,8 +127,8 @@ class Center extends PureComponent {
               {currentUser && Object.keys(currentUser).length ? (
                 <div>
                   <div className={styles.avatarHolder}>
-                    <img alt="" src={currentUser.avatar} />
-                    <div className={styles.name}>{currentUser.name}</div>
+                    <img alt="" src={currentUser.avatar_url} />
+                    <div className={styles.name}>{currentUser.nickname}</div>
                     <div>{currentUser.signature}</div>
                   </div>
                   <div className={styles.detail}>
@@ -140,16 +140,16 @@ class Center extends PureComponent {
                       <i className={styles.group} />
                       {currentUser.group}
                     </p>
-                    <p>
+                    {/* <p>
                       <i className={styles.address} />
                       {currentUser.geographic.province.label}
                       {currentUser.geographic.city.label}
-                    </p>
+                    </p> */}
                   </div>
-                  <Divider dashed />
+                  {/* <Divider dashed />
                   <div className={styles.tags}>
                     <div className={styles.tagsTitle}>标签</div>
-                    {currentUser.tags.concat(newTags).map(item => (
+                    {(currentUser.tags || []).concat(newTags).map(item => (
                       <Tag key={item.key}>{item.label}</Tag>
                     ))}
                     {inputVisible && (
@@ -172,9 +172,9 @@ class Center extends PureComponent {
                         <Icon type="plus" />
                       </Tag>
                     )}
-                  </div>
+                  </div> */}
                   <Divider style={{ marginTop: 16 }} dashed />
-                  <div className={styles.team}>
+                  {/* <div className={styles.team}>
                     <div className={styles.teamTitle}>团队</div>
                     <Spin spinning={projectLoading}>
                       <Row gutter={36}>
@@ -188,7 +188,7 @@ class Center extends PureComponent {
                         ))}
                       </Row>
                     </Spin>
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 'loading...'
