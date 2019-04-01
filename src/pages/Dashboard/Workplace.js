@@ -121,12 +121,12 @@ class Workplace extends PureComponent {
       currentUser && Object.keys(currentUser).length ? (
         <div className={styles.pageHeaderContent}>
           <div className={styles.avatar}>
-            <Avatar size="large" src={currentUser.avatar_url} />
+            <Avatar size="large" src={currentUser.avatar} />
           </div>
           <div className={styles.content}>
             <div className={styles.contentTitle}>
               早安，
-              {currentUser.nickname}
+              {currentUser.name}
               ，祝你开心每一天！
             </div>
             <div>
@@ -139,19 +139,19 @@ class Workplace extends PureComponent {
     const extraContent = (
       <div className={styles.extraContent}>
         <div className={styles.statItem}>
-          <p>参与题目数量</p>
+          <p>项目数</p>
           <p>56</p>
         </div>
         <div className={styles.statItem}>
-          <p>站内排名</p>
+          <p>团队内排名</p>
           <p>
             8<span> / 24</span>
           </p>
         </div>
-        {/* <div className={styles.statItem}>
+        <div className={styles.statItem}>
           <p>项目访问</p>
           <p>2,223</p>
-        </div> */}
+        </div>
       </div>
     );
 
@@ -166,9 +166,9 @@ class Workplace extends PureComponent {
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
-              title="进行中的题目"
+              title="进行中的项目"
               bordered={false}
-              extra={<Link to="/">全部题目</Link>}
+              extra={<Link to="/">全部项目</Link>}
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
@@ -196,7 +196,7 @@ class Workplace extends PureComponent {
                 </Card.Grid>
               ))}
             </Card>
-            {/* <Card
+            <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
@@ -206,7 +206,7 @@ class Workplace extends PureComponent {
               <List loading={activitiesLoading} size="large">
                 <div className={styles.activitiesList}>{this.renderActivities()}</div>
               </List>
-            </Card> */}
+            </Card>
           </Col>
           <Col xl={8} lg={24} md={24} sm={24} xs={24}>
             <Card
@@ -220,14 +220,14 @@ class Workplace extends PureComponent {
             <Card
               style={{ marginBottom: 24 }}
               bordered={false}
-              title="XX 题目评测指数"
+              title="XX 指数"
               loading={radarData.length === 0}
             >
               <div className={styles.chart}>
                 <Radar hasLegend height={343} data={radarData} />
               </div>
             </Card>
-            {/* <Card
+            <Card
               bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
               bordered={false}
               title="团队"
@@ -245,7 +245,7 @@ class Workplace extends PureComponent {
                   ))}
                 </Row>
               </div>
-            </Card> */}
+            </Card>
           </Col>
         </Row>
       </PageHeaderWrapper>

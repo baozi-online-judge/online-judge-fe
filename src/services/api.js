@@ -160,3 +160,8 @@ export async function queryNotices(params = {}) {
 export async function getFakeCaptcha(mobile) {
   return request(`/api/captcha?mobile=${mobile}`);
 }
+
+export async function getTitle(userId) {
+  const list = await request(`/api/problems?user_id=${userId}`);
+  return list.map(item => item.title);
+}

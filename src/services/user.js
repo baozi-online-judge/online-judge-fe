@@ -14,6 +14,7 @@ export async function queryCurrentUser() {
           nickname
           avatar_url
           email
+          role
         }
       }`,
     },
