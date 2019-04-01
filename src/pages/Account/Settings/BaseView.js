@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { formatMessage, FormattedMessage } from 'umi/locale';
-import { Form, Input, Upload, Select, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { connect } from 'dva';
 import styles from './BaseView.less';
-import GeographicView from './GeographicView';
-import PhoneView from './PhoneView';
 // import { getTimeDistance } from '@/utils/utils';
 
 const FormItem = Form.Item;
-const { Option } = Select;
 
 // 头像组件 方便以后独立，增加裁剪之类的功能
-const AvatarView = ({ avatar }) => (
+const AvatarView = ({ avatar, onClickButton }) => (
   <Fragment>
     <div className={styles.avatar_title}>
       <FormattedMessage id="app.settings.basic.avatar" defaultMessage="Avatar" />
@@ -19,43 +16,23 @@ const AvatarView = ({ avatar }) => (
     <div className={styles.avatar}>
       <img src={avatar} alt="avatar" />
     </div>
-    <Upload fileList={[]}>
-      <div className={styles.button_view}>
-        <Button icon="upload">
-          <FormattedMessage id="app.settings.basic.change-avatar" defaultMessage="Change avatar" />
-        </Button>
-      </div>
-    </Upload>
+    <div className={styles.button_view}>
+      <Button icon="upload" onClick={onClickButton}>
+        <FormattedMessage id="app.settings.basic.change-avatar" defaultMessage="Change avatar" />
+      </Button>
+    </div>
   </Fragment>
 );
-
-const validatorGeographic = (rule, value, callback) => {
-  const { province, city } = value;
-  if (!province.key) {
-    callback('Please input your province!');
-  }
-  if (!city.key) {
-    callback('Please input your city!');
-  }
-  callback();
-};
-
-const validatorPhone = (rule, value, callback) => {
-  const values = value.split('-');
-  if (!values[0]) {
-    callback('Please input your area code!');
-  }
-  if (!values[1]) {
-    callback('Please input your phone number!');
-  }
-  callback();
-};
 
 @connect(({ user }) => ({
   currentUser: user.currentUser,
 }))
 @Form.create()
 class BaseView extends Component {
+  state = {
+    avatar_url: '',
+  };
+
   componentDidMount() {
     this.setBaseInfo();
   }
@@ -67,25 +44,28 @@ class BaseView extends Component {
       obj[key] = currentUser[key] || null;
       form.setFieldsValue(obj);
     });
+    this.setState({
+      avatar_url: currentUser.avatar_url || '',
+    });
   };
-
-  getAvatarURL() {
-    const { currentUser } = this.props;
-    if (currentUser.avatar) {
-      return currentUser.avatar;
-    }
-    const url = 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
-    return url;
-  }
 
   getViewDom = ref => {
     this.view = ref;
+  };
+
+  hanldeUpdateAvatar = () => {
+    const { form } = this.props;
+    const targetAvatarUrl = form.getFieldsValue(['avatar_url']).avatar_url || '';
+    this.setState({
+      avatar_url: targetAvatarUrl,
+    });
   };
 
   render() {
     const {
       form: { getFieldDecorator },
     } = this.props;
+    const { avatar_url: avatarUrl } = this.state;
     return (
       <div className={styles.baseView} ref={this.getViewDom}>
         <div className={styles.left}>
@@ -101,7 +81,7 @@ class BaseView extends Component {
               })(<Input />)}
             </FormItem>
             <FormItem label={formatMessage({ id: 'app.settings.basic.nickname' })}>
-              {getFieldDecorator('name', {
+              {getFieldDecorator('nickname', {
                 rules: [
                   {
                     required: true,
@@ -110,68 +90,15 @@ class BaseView extends Component {
                 ],
               })(<Input />)}
             </FormItem>
-            <FormItem label={formatMessage({ id: 'app.settings.basic.profile' })}>
-              {getFieldDecorator('profile', {
+            <FormItem label={formatMessage({ id: 'app.settings.basic.avatar_url' })}>
+              {getFieldDecorator('avatar_url', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'app.settings.basic.profile-message' }, {}),
-                  },
-                ],
-              })(
-                <Input.TextArea
-                  placeholder={formatMessage({ id: 'app.settings.basic.profile-placeholder' })}
-                  rows={4}
-                />
-              )}
-            </FormItem>
-            <FormItem label={formatMessage({ id: 'app.settings.basic.country' })}>
-              {getFieldDecorator('country', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'app.settings.basic.country-message' }, {}),
-                  },
-                ],
-              })(
-                <Select style={{ maxWidth: 220 }}>
-                  <Option value="China">中国</Option>
-                </Select>
-              )}
-            </FormItem>
-            <FormItem label={formatMessage({ id: 'app.settings.basic.geographic' })}>
-              {getFieldDecorator('geographic', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'app.settings.basic.geographic-message' }, {}),
-                  },
-                  {
-                    validator: validatorGeographic,
-                  },
-                ],
-              })(<GeographicView />)}
-            </FormItem>
-            <FormItem label={formatMessage({ id: 'app.settings.basic.address' })}>
-              {getFieldDecorator('address', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'app.settings.basic.address-message' }, {}),
+                    message: formatMessage({ id: 'app.settings.basic.avatar_url-message' }, {}),
                   },
                 ],
               })(<Input />)}
-            </FormItem>
-            <FormItem label={formatMessage({ id: 'app.settings.basic.phone' })}>
-              {getFieldDecorator('phone', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'app.settings.basic.phone-message' }, {}),
-                  },
-                  { validator: validatorPhone },
-                ],
-              })(<PhoneView />)}
             </FormItem>
             <Button type="primary">
               <FormattedMessage
@@ -182,7 +109,7 @@ class BaseView extends Component {
           </Form>
         </div>
         <div className={styles.right}>
-          <AvatarView avatar={this.getAvatarURL()} />
+          <AvatarView avatar={avatarUrl} onClickButton={this.hanldeUpdateAvatar} />
         </div>
       </div>
     );

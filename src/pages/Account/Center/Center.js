@@ -89,7 +89,11 @@ class Center extends PureComponent {
               {currentUser && Object.keys(currentUser).length ? (
                 <div className={styles.avatarHolder}>
                   <img alt="" src={currentUser.avatar_url} />
-                  <div className={styles.name}>{currentUser.nickname}</div>
+                  <div className={styles.name}>
+                    {currentUser.nickname}
+                    <br />
+                    <span className={styles.userId}>{`@${currentUser.user_id}`}</span>
+                  </div>
                   <div>{roleMessage}</div>
                 </div>
               ) : (
