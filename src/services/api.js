@@ -103,6 +103,9 @@ export async function updateFakeList(params) {
   });
 }
 
+/** ************************************************
+ * Login
+ ************************************************ */
 export async function accountLogin(params) {
   const { userId, password, rememberMe } = params;
   return request('/graphql', {
@@ -149,6 +152,45 @@ export async function register(params) {
         }
       }`,
       operation: 'register',
+    },
+  });
+}
+
+/** ************************************************
+ * Problems
+ ************************************************ */
+export async function queryProblems() {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `query {
+        problems(ids: [], extract: 140) {
+          problem_id
+          title
+          tags
+          difficulty
+          content
+        }
+      }`,
+    },
+  });
+}
+
+export async function queryProblem({ problemId }) {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `query {
+        problems(ids: [ "${problemId}" ]) {
+          problem_id
+          title
+          tags
+          difficulty
+          content
+          template
+          require_time
+        }
+      }`,
     },
   });
 }

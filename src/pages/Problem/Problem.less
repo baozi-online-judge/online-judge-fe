@@ -1,0 +1,49 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/utils/utils.less';
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/theme/xq-light.css';
+
+.description {
+  > * {
+    margin-right: 1rem;
+  }
+  .difficulty {
+    font-weight: bold;
+  }
+  .EASY {
+    color: @success-color;
+  }
+  .MEDIUM {
+    color: @warning-color;
+  }
+  .HARD {
+    color: @error-color;
+  }
+}
+
+.markdown {
+  pre {
+    padding: 10px 15px;
+    background-color: #f7f9fa;
+  }
+}
+
+.codeMirror {
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+
+  pre {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;
+  }
+}
+
+.panel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.submitGroup {
+  display: flex;
+  flex-flow: row-reverse;
+}

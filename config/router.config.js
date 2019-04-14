@@ -87,7 +87,7 @@ export default [
           {
             path: '/form/advanced-form',
             name: 'advancedform',
-            authority: ['admin'],
+            authority: ['ADMIN'],
             component: './Forms/AdvancedForm',
           },
         ],
@@ -99,47 +99,17 @@ export default [
         name: 'list',
         routes: [
           {
-            path: '/list/table-list',
-            name: 'searchtable',
-            component: './List/TableList',
-          },
-          {
-            path: '/list/basic-list',
-            name: 'basiclist',
-            component: './List/BasicList',
-          },
-          {
-            path: '/list/card-list',
-            name: 'cardlist',
-            component: './List/CardList',
-          },
-          {
-            path: '/list/search',
-            name: 'searchlist',
-            component: './List/List',
-            routes: [
-              {
-                path: '/list/search',
-                redirect: '/list/search/articles',
-              },
-              {
-                path: '/list/search/articles',
-                name: 'articles',
-                component: './List/Articles',
-              },
-              {
-                path: '/list/search/projects',
-                name: 'projects',
-                component: './List/Projects',
-              },
-              {
-                path: '/list/search/applications',
-                name: 'applications',
-                component: './List/Applications',
-              },
-            ],
+            path: '/list/problems',
+            name: 'problems-table',
+            component: './List/Problems',
           },
         ],
+      },
+      {
+        path: '/problem/:pid',
+        name: 'problem',
+        hideInMenu: true,
+        component: './Problem/Problem',
       },
       {
         path: '/profile',
@@ -249,18 +219,6 @@ export default [
               {
                 path: '/account/settings/base',
                 component: './Account/Settings/BaseView',
-              },
-              {
-                path: '/account/settings/security',
-                component: './Account/Settings/SecurityView',
-              },
-              {
-                path: '/account/settings/binding',
-                component: './Account/Settings/BindingView',
-              },
-              {
-                path: '/account/settings/notification',
-                component: './Account/Settings/NotificationView',
               },
             ],
           },
