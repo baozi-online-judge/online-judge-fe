@@ -15,7 +15,7 @@ import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
 
 // lazy load SettingDrawer
-const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
+// const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
 
 const { Content } = Layout;
 
@@ -94,7 +94,8 @@ class BasicLayout extends React.Component {
     if (process.env.NODE_ENV === 'production' && APP_TYPE !== 'site') {
       return null;
     }
-    return <SettingDrawer />;
+    // return <SettingDrawer />;
+    return null;
   };
 
   render() {

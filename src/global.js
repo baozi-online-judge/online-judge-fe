@@ -2,6 +2,7 @@ import React from 'react';
 import { notification, Button, message } from 'antd';
 import { formatMessage } from 'umi/locale';
 import defaultSettings from './defaultSettings';
+import 'codemirror/mode/javascript/javascript';
 
 window.React = React;
 

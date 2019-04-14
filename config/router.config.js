@@ -51,6 +51,7 @@ export default [
         path: '/form',
         icon: 'form',
         name: 'form',
+        hideInMenu: true,
         routes: [
           {
             path: '/form/basic-form',
@@ -94,16 +95,16 @@ export default [
       },
       // list
       {
-        path: '/list',
-        icon: 'table',
-        name: 'list',
-        routes: [
-          {
-            path: '/list/problems',
-            name: 'problems-table',
-            component: './List/Problems',
-          },
-        ],
+        path: '/problems',
+        icon: 'solution',
+        name: 'problems-table',
+        component: './List/Problems',
+      },
+      {
+        path: '/submissions',
+        name: 'submissions-table',
+        icon: 'stock',
+        component: './List/Submissions',
       },
       {
         path: '/problem/:pid',
@@ -112,9 +113,16 @@ export default [
         component: './Problem/Problem',
       },
       {
+        path: '/submission/:sid',
+        name: 'submission',
+        hideInMenu: true,
+        component: './Submission/Submission',
+      },
+      {
         path: '/profile',
         name: 'profile',
         icon: 'profile',
+        hideInMenu: true,
         routes: [
           // profile
           {
@@ -140,6 +148,7 @@ export default [
         name: 'result',
         icon: 'check-circle-o',
         path: '/result',
+        hideInMenu: true,
         routes: [
           // result
           {
@@ -154,6 +163,7 @@ export default [
         name: 'exception',
         icon: 'warning',
         path: '/exception',
+        hideInMenu: true,
         routes: [
           // exception
           {

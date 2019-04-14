@@ -1,18 +1,18 @@
-import { queryProblems } from '@/services/api';
+import { querySubmissions } from '@/services/api';
 
 export default {
-  namespace: 'problems',
+  namespace: 'submissions',
   state: {
-    problems: [],
+    submissions: [],
   },
   effects: {
     *fetch(_, { call, put }) {
-      const { data } = yield call(queryProblems);
-      if (data.problems) {
+      const { data } = yield call(querySubmissions);
+      if (data.relatedSubmissions) {
         yield put({
           type: 'save',
           payload: {
-            problemsList: data.problems,
+            submissionsList: data.relatedSubmissions,
           },
         });
       }
@@ -22,7 +22,7 @@ export default {
     save(state, { payload }) {
       return {
         ...state,
-        problems: payload.problemsList,
+        submissions: payload.submissionsList,
       };
     },
   },

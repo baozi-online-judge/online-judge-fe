@@ -1,6 +1,6 @@
 import * as React from 'react';
 export interface IResultProps {
-  type: 'success' | 'error';
+  type: 'success' | 'error' | 'warn';
   title: React.ReactNode;
   description?: React.ReactNode;
   extra?: React.ReactNode;

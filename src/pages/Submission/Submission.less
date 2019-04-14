@@ -1,6 +1,4 @@
-@import '~antd/lib/style/themes/default.less';
-@import '~@/utils/utils.less';
-
+// noop
 .description {
   > * {
     margin-right: 1rem;
@@ -8,18 +6,10 @@
   .difficulty {
     font-weight: bold;
   }
-  .EASY {
-    color: @success-color;
-  }
-  .MEDIUM {
-    color: @warning-color;
-  }
-  .HARD {
-    color: @error-color;
-  }
 }
 
-.markdown {
+.innerMarkdown {
+  margin-top: 1rem;
   pre {
     padding: 10px 15px;
     background-color: #f7f9fa;
@@ -38,10 +28,24 @@
 .panel {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
 .submitGroup {
   display: flex;
   flex-flow: row-reverse;
+}
+.cardTitle {
+  font-weight: bold;
+}
+
+.rightTools {
+  > * {
+    margin-left: 1rem;
+  }
+}
+
+.topTitle {
+  font-size: 1.5rem;
 }

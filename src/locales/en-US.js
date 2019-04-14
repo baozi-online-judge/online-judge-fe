@@ -10,6 +10,7 @@ import settingDrawer from './en-US/settingDrawer';
 import settings from './en-US/settings';
 import pwa from './en-US/pwa';
 import component from './en-US/component';
+import submission from './en-US/submission';
 
 export default {
   'navBar.lang': 'Languages',
@@ -34,4 +35,5 @@ export default {
   ...settings,
   ...pwa,
   ...component,
+  ...submission,
 };

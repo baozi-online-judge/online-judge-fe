@@ -22,6 +22,5 @@ export default {
   'app.result.success.step3-title': '财务复核',
   'app.result.success.step4-title': '完成',
   'app.result.success.btn-return': '返回列表',
-  'app.result.success.btn-project': '查看项目',
-  'app.result.success.btn-print': '打印',
+  'app.result.success.btn-problem': '查看题目',
 };

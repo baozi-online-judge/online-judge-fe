@@ -7,7 +7,6 @@ import Markdown from 'react-markdown';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import styles from './Problem.less';
 import { getRandomColor } from '@/utils/tagColors';
-import 'codemirror/mode/javascript/javascript';
 
 const { Option } = Select;
 const { confirm } = Modal;

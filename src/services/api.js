@@ -195,6 +195,53 @@ export async function queryProblem({ problemId }) {
   });
 }
 
+/** ************************************************
+ * Submissions
+ ************************************************ */
+export async function querySubmissions() {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `query {
+        relatedSubmissions {
+          record_id
+          result
+          time
+          language
+          problem {
+            problem_id
+            title
+          }
+        }
+      }`,
+    },
+  });
+}
+
+export async function queryDetail({ recordId }) {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `query {
+        detail(recordId: "${recordId}") {
+          result
+          record_id
+          example_input
+          expect_output
+          user_output
+          language
+          code
+          time
+          problem {
+            problem_id
+            title
+          }
+        }
+      }`,
+    },
+  });
+}
+
 export async function queryNotices(params = {}) {
   return request(`/api/notices?${stringify(params)}`);
 }
