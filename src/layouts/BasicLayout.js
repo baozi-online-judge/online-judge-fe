@@ -13,6 +13,7 @@ import PageLoading from '@/components/PageLoading';
 import SiderMenu from '@/components/SiderMenu';
 import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
+import getSocket from '@/utils/socket';
 
 // lazy load SettingDrawer
 // const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -50,8 +51,17 @@ class BasicLayout extends React.Component {
       dispatch,
       route: { routes, authority },
     } = this.props;
+
+    const socket = getSocket();
+    socket.on('res', message => {
+      // eslint-disable-next-line no-console
+      console.log(`Got message from server: ${message}`);
+    });
+    socket.emit('server', 'this is test from client');
+
     dispatch({
       type: 'user/fetchCurrent',
+      payload: { useSocket: true },
     });
     dispatch({
       type: 'setting/getSetting',

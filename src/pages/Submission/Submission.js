@@ -11,6 +11,7 @@ import { getRandomColor } from '@/utils/tagColors';
 import languageMapper from '@/utils/languageMapper';
 import Markdown from 'react-markdown';
 import Result from '@/components/Result';
+import getSocket from '@/utils/socket';
 
 const { confirm } = Modal;
 
@@ -25,20 +26,35 @@ const getMessageType = result => {
   }
 };
 
-@connect(({ submission, loading }) => ({
+@connect(({ submission, loading, user }) => ({
   submission,
   loading: loading.effects.submission,
+  current: user.currentUser,
 }))
 class SubmissionDetail extends Component {
   componentDidMount() {
-    const { dispatch, match } = this.props;
+    const { dispatch, match, current } = this.props;
     const { params } = match;
+    // 获取第一次题目状态
     dispatch({
       type: 'submission/fetchSubmission',
       payload: {
         recordId: params.sid,
       },
     });
+    if (current.user_id) {
+      const socket = getSocket();
+      // 通过Socket来监听提交记录
+      socket.on(`User_${current.user_id}`, recordId => {
+        // 该提交记录已更新，重新获取题目状态
+        dispatch({
+          type: 'submission/fetchSubmission',
+          payload: {
+            recordId,
+          },
+        });
+      });
+    }
   }
 
   handleClickResetTemplate = () => {
@@ -46,12 +62,18 @@ class SubmissionDetail extends Component {
       submission: { submission: target },
     } = this.props;
     confirm({
-      title: '请确认是否使当前代码重置为模板代码？',
-      content: '这会导致您当前的代码丢失，请确认是否有备份',
+      title: '请确认是否重新加载当前代码？',
+      content: '将跳转至相应题目',
       onOk: () => {
-        // eslint-disable-next-line no-console
         console.log(target);
-        // noop
+        if (target.problem) {
+          router.push({
+            pathname: `/problem/${target.problem.problem_id}`,
+            query: {
+              submission_code: target.record_id,
+            },
+          });
+        }
       },
     });
   };
@@ -110,36 +132,52 @@ class SubmissionDetail extends Component {
       </Button.Group>
     );
 
-    const extra =
-      target.example_input && target.expect_output && target.user_output ? (
-        <Fragment>
-          <Card bordered={false} style={{ marginBottom: '1rem' }}>
-            <Row gutter={16}>
-              <Col span={12}>
-                <Card.Meta title={this.getTitle('测试样例', 'diff')} />
-                <Markdown
-                  className={styles.innerMarkdown}
-                  source={`\`\`\`\n${target.example_input}\n\`\`\``}
-                />
-              </Col>
-              <Col span={12}>
-                <Card.Meta title={this.getTitle('期望输出', 'smile')} />
-                <Markdown
-                  className={styles.innerMarkdown}
-                  source={`\`\`\`\n${target.expect_output}\n\`\`\``}
-                />
-              </Col>
-            </Row>
+    let extra = null;
+    if (target.user_output) {
+      if (target.example_input && target.expect_output) {
+        extra = (
+          <Fragment>
+            <Card bordered={false} style={{ marginBottom: '1rem' }}>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Card.Meta title={this.getTitle('测试样例', 'diff')} />
+                  <Markdown
+                    className={styles.innerMarkdown}
+                    source={`\`\`\`\n${target.example_input}\n\`\`\``}
+                  />
+                </Col>
+                <Col span={12}>
+                  <Card.Meta title={this.getTitle('期望输出', 'smile')} />
+                  <Markdown
+                    className={styles.innerMarkdown}
+                    source={`\`\`\`\n${target.expect_output}\n\`\`\``}
+                  />
+                </Col>
+              </Row>
 
-            <Divider />
-            <Card.Meta title={this.getTitle('你的输出', 'warning')} />
-            <Markdown
-              className={styles.innerMarkdown}
-              source={`\`\`\`\n${target.user_output}\n\`\`\``}
-            />
-          </Card>
-        </Fragment>
-      ) : null;
+              <Divider />
+              <Card.Meta title={this.getTitle('你的输出', 'warning')} />
+              <Markdown
+                className={styles.innerMarkdown}
+                source={`\`\`\`\n${target.user_output}\n\`\`\``}
+              />
+            </Card>
+          </Fragment>
+        );
+      } else {
+        extra = (
+          <Fragment>
+            <Card bordered={false} style={{ marginBottom: '1rem' }}>
+              <Card.Meta title={this.getTitle('输出信息', 'warning')} />
+              <Markdown
+                className={styles.innerMarkdown}
+                source={`\`\`\`\n${target.user_output}\n\`\`\``}
+              />
+            </Card>
+          </Fragment>
+        );
+      }
+    }
 
     return (
       <PageHeaderWrapper title="提交记录详情" loading={loading}>

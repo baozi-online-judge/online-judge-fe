@@ -195,6 +195,27 @@ export async function queryProblem({ problemId }) {
   });
 }
 
+export async function submitCode({ problemId, language, code }) {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `mutation Submit($problemId: String!, $language: String!, $code: String!) {
+        submitCode(problem_id: $problemId, language: $language, code: $code) {
+          record_id
+          result
+          time
+        }
+      }
+      `,
+      variables: {
+        problemId,
+        language,
+        code,
+      },
+    },
+  });
+}
+
 /** ************************************************
  * Submissions
  ************************************************ */

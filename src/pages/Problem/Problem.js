@@ -5,11 +5,18 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import classNames from 'classnames';
 import Markdown from 'react-markdown';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
+import router from 'umi/router';
 import styles from './Problem.less';
 import { getRandomColor } from '@/utils/tagColors';
+import { submitCode } from '@/services/api';
 
 const { Option } = Select;
 const { confirm } = Modal;
+
+const languageMapper = {
+  js: 'javascript',
+  cpp: 'cpp',
+};
 
 @connect(({ problem, loading }) => ({
   problem,
@@ -19,7 +26,7 @@ class ProblemDetail extends Component {
   codeMirror = React.createRef();
 
   state = {
-    language: 'javascript',
+    language: 'js',
   };
 
   componentDidMount() {
@@ -52,6 +59,26 @@ class ProblemDetail extends Component {
     });
   };
 
+  handleSubmitCode = async () => {
+    const code = this.codeMirror.current.editor.getValue();
+    const { language } = this.state;
+    const {
+      problem: { problem },
+    } = this.props;
+    const { problem_id: problemId } = problem;
+    const { data } = await submitCode({
+      problemId,
+      language,
+      code,
+    });
+    if (data && data.submitCode) {
+      const { record_id: recordId } = data.submitCode;
+      router.push({
+        pathname: `/submission/${recordId}`,
+      });
+    }
+  };
+
   render() {
     const { loading, problem } = this.props;
     const { language } = this.state;
@@ -76,7 +103,7 @@ class ProblemDetail extends Component {
       </div>
     );
     const options = {
-      mode: language,
+      mode: languageMapper[language],
       theme: 'xq-light',
       lineNumbers: true,
     };
@@ -90,7 +117,7 @@ class ProblemDetail extends Component {
         <Card bordered={false}>
           <div className={styles.panel}>
             <Select value={language} onChange={this.handleLanguageChange}>
-              <Option value="javascript">JavaScript</Option>
+              <Option value="js">JavaScript</Option>
               <Option value="cpp" disabled>
                 C++
               </Option>
@@ -108,7 +135,7 @@ class ProblemDetail extends Component {
             options={options}
           />
           <div className={styles.submitGroup}>
-            <Button type="primary" icon="edit">
+            <Button onClick={this.handleSubmitCode} type="primary" icon="edit">
               提交
             </Button>
           </div>
