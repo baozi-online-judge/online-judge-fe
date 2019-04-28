@@ -16,7 +16,7 @@ An Online Judge Project
 
 ```bash
 $ yarn install --reigstry=https://registry.npm.taobao.org
-$ npm start         # visit http://localhost:8000
+$ yarn start         # visit http://localhost:8000
 ```
 
 ## Browsers support
