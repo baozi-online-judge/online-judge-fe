@@ -263,6 +263,38 @@ export async function queryDetail({ recordId }) {
   });
 }
 
+/** ************************************************
+ * Discussions
+ ************************************************ */
+export async function queryDiscussions(ids = [], extract = 0) {
+  return request('/graphql', {
+    method: 'POST',
+    body: {
+      query: `query Discussions($ids: [String!], $extract: Int) {
+        discussions(ids: $ids, extract: $extract) {
+          discussion_id
+          title
+          content
+          update_time
+          create_time
+          problem {
+            title
+            problem_id
+            difficulty
+          }
+          user {
+            nickname
+          }
+        }
+      }`,
+      variables: {
+        ids,
+        extract,
+      },
+    },
+  });
+}
+
 export async function queryNotices(params = {}) {
   return request(`/api/notices?${stringify(params)}`);
 }

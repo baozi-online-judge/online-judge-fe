@@ -116,7 +116,7 @@ class Problems extends Component {
     const list = problems.problems || [];
     return (
       <PageHeaderWrapper title="问题列表">
-        <Card bordered={false}>
+        <Card bordered={false} style={{ marginBottom: '1rem' }}>
           <StandardFormRow title="搜索">
             <Search
               placeholder="根据标题、标签搜索题目"
@@ -134,7 +134,7 @@ class Problems extends Component {
             </RadioGroup>
           </StandardFormRow>
         </Card>
-        <Card style={{ marginTop: 24 }}>
+        <Card bordered={false}>
           <List
             size="large"
             rowKey="problem_id"

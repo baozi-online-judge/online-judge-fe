@@ -15,6 +15,7 @@ export default {
   'menu.form.stepform.result': 'Step Form(finished)',
   'menu.form.advancedform': 'Advanced Form',
   'menu.problem': 'Problem Detail',
+  'menu.discussion': 'Discussion Detail',
   'menu.list': 'List',
   'menu.submission': 'Submission Detail',
   'menu.list.searchtable': 'Search Table',

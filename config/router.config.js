@@ -119,6 +119,18 @@ export default [
         component: './Submission/Submission',
       },
       {
+        path: '/discussions',
+        icon: 'smile',
+        name: 'discussion-table',
+        component: './List/Discussions',
+      },
+      {
+        path: '/discussion/:did',
+        name: 'discussion',
+        hideInMenu: true,
+        component: './Discussion/Discussion',
+      },
+      {
         path: '/profile',
         name: 'profile',
         icon: 'profile',

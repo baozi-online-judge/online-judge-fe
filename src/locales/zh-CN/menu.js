@@ -15,6 +15,7 @@ export default {
   'menu.form.stepform.result': '分步表单（完成）',
   'menu.form.advancedform': '高级表单',
   'menu.problem': '问题详情',
+  'menu.discussion': '讨论详情',
   'menu.list': '内容列表',
   'menu.list.searchtable': '查询表格',
   'menu.submission': '记录详情',
